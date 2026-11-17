@@ -173,7 +173,7 @@ export const AppStartAnimation: React.FC = () => {
                 transition={{ duration: 0.62, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
                 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white"
               >
-                EcoTrack <span className="text-[#fcd34d]">V22</span>
+                EcoTrack
               </motion.h1>
             </div>
 

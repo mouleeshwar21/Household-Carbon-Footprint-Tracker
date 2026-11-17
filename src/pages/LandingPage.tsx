@@ -106,7 +106,7 @@ export const LandingPage: React.FC = () => {
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-emerald-300">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span>EcoTrack V22 · IPCC 2006 · CEA India · DEFRA · EPA · ICAO</span>
+              <span>EcoTrack · IPCC 2006 · CEA India · DEFRA · EPA · ICAO</span>
             </div>
 
             <h1

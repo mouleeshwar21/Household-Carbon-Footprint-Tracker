@@ -78,7 +78,7 @@ export const AboutPage: React.FC = () => {
           3. Paris 1.5°C Benchmark &amp; Tree Sequestration
         </h2>
         <p>
-          EcoTrack V22 benchmarks per-resident monthly emissions against the{' '}
+          EcoTrack benchmarks per-resident monthly emissions against the{' '}
           <strong className="font-mono text-[var(--text-primary)]">167 kg CO₂e / person / month</strong>{' '}
           (2.0 tonnes CO₂e/year) sustainable household lifestyle pathway aligned with 1.5°C climate targets.
         </p>

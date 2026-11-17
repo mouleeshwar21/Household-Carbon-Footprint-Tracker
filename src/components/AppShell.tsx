@@ -96,7 +96,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
             <span className="w-8 h-8 rounded-xl bg-[var(--accent-primary)] text-[var(--accent-contrast)] flex items-center justify-center shadow-sm">
               <Leaf className="w-4 h-4" />
             </span>
-            <span>EcoTrack V22</span>
+            <span>EcoTrack</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-2 text-xs text-[var(--text-muted)] pl-3 border-l border-[var(--border-subtle)] truncate">
@@ -268,7 +268,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-2 font-bold">
                     <BarChart3 className="w-5 h-5 text-[#fcd34d]" />
-                    <span>EcoTrack V22</span>
+                    <span>EcoTrack</span>
                   </div>
                   <button
                     type="button"

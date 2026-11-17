@@ -321,7 +321,7 @@ export const LoginPage: React.FC = () => {
               <Leaf className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-xl font-extrabold tracking-tight text-white">EcoTrack V22</h1>
+              <h1 className="text-xl font-extrabold tracking-tight text-white">EcoTrack</h1>
               <p className="font-editorial text-xs text-emerald-100/80">
                 TerraLedger Household Carbon Ledger
               </p>

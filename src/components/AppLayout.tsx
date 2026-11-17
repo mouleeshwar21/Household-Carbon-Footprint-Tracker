@@ -282,9 +282,6 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
                 className="text-sm font-extrabold tracking-tight flex items-center gap-1.5"
               >
                 <span className="text-emerald-600 dark:text-emerald-400">EcoTrack</span>
-                <span className="text-amber-600 dark:text-amber-300 font-mono text-xs">
-                  V22
-                </span>
               </button>
             </div>
 

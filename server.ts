@@ -488,7 +488,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`EcoTrack V22 server running on http://0.0.0.0:${PORT}`);
+    console.log(`EcoTrack server running on http://0.0.0.0:${PORT}`);
   });
 }
 

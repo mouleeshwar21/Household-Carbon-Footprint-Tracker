@@ -86,7 +86,7 @@ export const ReportsPage: React.FC = () => {
         <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-[var(--border-subtle)]">
           <div>
             <p className="text-xs font-mono text-[var(--accent-secondary)] font-semibold">
-              TERRALEDGER · ECOTRACK V22 CERTIFICATE
+              TERRALEDGER · ECOTRACK CERTIFICATE
             </p>
             <h2 className="text-2xl font-extrabold tracking-tight mt-1">
               {profile.householdName}

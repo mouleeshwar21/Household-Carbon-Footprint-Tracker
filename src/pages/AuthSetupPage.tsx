@@ -283,7 +283,7 @@ export const AuthSetupPage: React.FC = () => {
         <div className="lg:col-span-5 aurora-mesh rounded-[28px] p-7 sm:p-8 text-white flex flex-col justify-between relative overflow-hidden border border-white/15 shadow-2xl">
           <div className="relative z-10 space-y-5">
             <div className="flex items-center gap-2 text-xs font-mono text-[#fcd34d]">
-              <span>EcoTrack V22</span>
+              <span>EcoTrack</span>
               <span aria-hidden="true">·</span>
               <span>Household Carbon Ledger</span>
             </div>

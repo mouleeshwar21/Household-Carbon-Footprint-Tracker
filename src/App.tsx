@@ -20,7 +20,7 @@ const AppRoutes: React.FC = () => {
   if (!authReady) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--bg-canvas)] text-[var(--text-primary)]">
-        <p className="font-mono text-sm text-[var(--text-muted)]">Initializing EcoTrack V22...</p>
+        <p className="font-mono text-sm text-[var(--text-muted)]">Initializing EcoTrack...</p>
       </div>
     );
   }

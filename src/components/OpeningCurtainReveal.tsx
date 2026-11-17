@@ -41,13 +41,13 @@ export const OpeningCurtainReveal: React.FC = () => {
               <div className="relative w-28 h-28 rounded-full border border-[#fcd34d]/45 bg-[#132a26]/80 shadow-[0_0_50px_rgba(252,211,77,0.22)] flex flex-col items-center justify-center gap-1">
                 <Leaf className="w-6 h-6 text-[#fcd34d]" />
                 <span className="font-mono text-[11px] tracking-[0.18em] text-[#fcd34d] font-semibold">
-                  SEAL · V22
+                  SEAL
                 </span>
               </div>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
-              EcoTrack V22
+              EcoTrack
             </h1>
             <p className="font-editorial text-emerald-200/85 text-base sm:text-lg mb-6">
               TerraLedger Household Carbon Ledger
