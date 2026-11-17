@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useEcoTrack } from '../context/EcoTrackContext';
 import { SECURITY_QUESTIONS, extractResetOobCode } from '../utils/security';
+import loginEcoForest from '../assets/images/login_eco_forest_1794720792838.jpg';
 
 type AuthMode = 'signin' | 'signup' | 'forgot';
 type ForgotStep = 'email' | 'question' | 'reset';
@@ -284,7 +285,7 @@ export const LoginPage: React.FC = () => {
       {/* Full-bleed eco-home forest backdrop */}
       {!imgFailed && (
         <img
-          src="/src/assets/images/login_eco_forest_1794720792838.jpg"
+          src={loginEcoForest}
           alt="Sustainable timber and solar eco-home in misty emerald forest"
           referrerPolicy="no-referrer"
           onError={() => setImgFailed(true)}

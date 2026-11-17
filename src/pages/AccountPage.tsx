@@ -22,6 +22,7 @@ import {
 } from '../utils/calculations';
 import { SECURITY_QUESTIONS } from '../utils/security';
 import { CurrencyCode, RegionId } from '../types/carbon';
+import ecoAvatarHousehold from '../assets/images/eco_avatar_household_1794720793438.jpg';
 
 export const AccountPage: React.FC = () => {
   const {
@@ -215,7 +216,7 @@ export const AccountPage: React.FC = () => {
       <section className="bento-card rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
         <div className="flex items-center gap-4">
           <img
-            src={user?.photoURL || '/src/assets/images/eco_avatar_household_1794720793438.jpg'}
+            src={user?.photoURL || ecoAvatarHousehold}
             alt="Household avatar"
             referrerPolicy="no-referrer"
             className="w-16 h-16 rounded-2xl object-cover border border-[var(--border-strong)] shrink-0"

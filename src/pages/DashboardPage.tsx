@@ -36,6 +36,8 @@ import { MonthlyTrendChart } from '../components/charts/MonthlyTrendChart';
 import { DailyTipWidget } from '../components/DailyTipWidget';
 import { AuditInspectModal } from '../components/AuditInspectModal';
 import { CarbonAudit, RegionId } from '../types/carbon';
+import heroBotanicalHome from '../assets/images/hero_botanical_home_1794720795128.jpg';
+import ecoAvatarHousehold from '../assets/images/eco_avatar_household_1794720793438.jpg';
 
 export const DashboardPage: React.FC = () => {
   const {
@@ -348,7 +350,7 @@ export const DashboardPage: React.FC = () => {
           <div className="md:col-span-7 bento-card rounded-2xl overflow-hidden relative min-h-[250px] flex flex-col justify-between p-6 text-white bg-[#132a26]">
             {!heroImgFailed && (
               <img
-                src="/src/assets/images/hero_botanical_home_1794720795128.jpg"
+                src={heroBotanicalHome}
                 alt="Courtyard eco-residence with rooftop solar canopy"
                 referrerPolicy="no-referrer"
                 onError={() => setHeroImgFailed(true)}
@@ -361,7 +363,7 @@ export const DashboardPage: React.FC = () => {
             />
             <div className="relative z-10 flex items-center gap-3">
               <img
-                src="/src/assets/images/eco_avatar_household_1794720793438.jpg"
+                src={ecoAvatarHousehold}
                 alt="Household botanical crest"
                 referrerPolicy="no-referrer"
                 className="w-11 h-11 rounded-xl object-cover border border-[#fcd34d]/40"
