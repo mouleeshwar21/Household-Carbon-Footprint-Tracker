@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6 max-w-4xl">
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl font-extrabold tracking-tight">Account &amp; Household Profile</h1>
+            <a th:href="@{/login}" class="px-4 py-2 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-600 text-xs font-semibold">Sign Out</a>
+        </div>
+        <div class="bento-card p-6 space-y-2">
+            <p class="text-lg font-bold" th:text="${profile.householdName()}"></p>
+            <p class="text-xs text-[var(--text-muted)]" th:text="${'Residents: ' + profile.members() + ' · Region: ' + profile.regionId().fullName + ' · Solar Offset: ' + profile.solarOffsetPct() + '%'}"></p>
+        </div>
+    </section>
+</div>
+</body>
+</html>

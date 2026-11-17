@@ -1,0 +1,6 @@
+{
+  "name": "EcoTrack V22",
+  "description": "TerraLedger Global Household Carbon Footprint Tracker with IPCC/IEA emissions engine, 6-Theme Studio, Liquid Glass auth, and Maps Grounded Eco-Hub discovery.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

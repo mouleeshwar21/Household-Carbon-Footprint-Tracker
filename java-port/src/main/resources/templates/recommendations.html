@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6">
+        <h1 class="text-3xl font-extrabold tracking-tight">Quick Wins &amp; Local Eco-Hub Locator</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div th:each="act : ${quickWins}" class="bento-card p-5 space-y-2">
+                <div class="flex items-start justify-between gap-2">
+                    <h2 class="text-base font-bold" th:text="${act.title()}">Action</h2>
+                    <span class="font-mono text-xs font-bold text-emerald-600" th:text="${'-' + act.annualSavingsKg() + ' kg/yr'}"></span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]" th:text="${act.summary()}"></p>
+                <ol class="text-xs text-[var(--text-muted)] space-y-1 pt-2 border-t border-[var(--border-subtle)]">
+                    <li th:each="st : ${act.steps()}" th:text="${'• ' + st}"></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6 max-w-4xl">
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl font-extrabold tracking-tight">Certified Household Carbon Report</h1>
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-[var(--accent-primary)] text-[var(--accent-contrast)] text-xs font-semibold">Print / Save PDF</button>
+        </div>
+        <article class="bento-card p-8 space-y-6">
+            <div>
+                <p class="text-xs font-mono text-[var(--accent-secondary)]">TERRALEDGER · ECOTRACK V22 CERTIFICATE</p>
+                <h2 class="text-2xl font-extrabold mt-1" th:text="${profile.householdName()}"></h2>
+                <p class="text-xs text-[var(--text-muted)]" th:text="${'Cycle: ' + activeAudit.label() + ' · Total: ' + breakdown.totalKgCo2e() + ' kg CO₂e'}"></p>
+            </div>
+            <table class="w-full text-left text-sm">
+                <thead>
+                <tr class="border-b border-[var(--border-subtle)] text-xs text-[var(--text-muted)]">
+                    <th class="py-2">Stream</th>
+                    <th class="py-2 text-right">Volume</th>
+                    <th class="py-2 text-right">Emissions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s : ${breakdown.streams()}" class="border-b border-[var(--border-subtle)]">
+                    <td class="py-2.5" th:text="${s.emoji() + ' ' + s.label()}"></td>
+                    <td class="py-2.5 text-right font-mono" th:text="${s.rawDisplay()}"></td>
+                    <td class="py-2.5 text-right font-mono font-bold" th:text="${s.kgCo2e() + ' kg'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+    </section>
+</div>
+</body>
+</html>

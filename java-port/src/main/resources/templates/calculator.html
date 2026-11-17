@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6">
+        <h1 class="text-3xl font-extrabold tracking-tight">8-Stream Household Carbon Calculator</h1>
+        <form id="calc-form" class="bento-card p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="text-xs font-semibold">Electricity (kWh)<input name="electricityKwh" type="number" step="0.1" th:value="${activeAudit.inputs().electricityKwh()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Cooking Gas / LPG (kg)<input name="lpgKg" type="number" step="0.1" th:value="${activeAudit.inputs().lpgKg()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Petrol (L)<input name="petrolL" type="number" step="0.1" th:value="${activeAudit.inputs().petrolL()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Diesel (L)<input name="dieselL" type="number" step="0.1" th:value="${activeAudit.inputs().dieselL()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Air Travel (km)<input name="airTravelKm" type="number" step="1" th:value="${activeAudit.inputs().airTravelKm()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Piped Natural Gas (m³)<input name="pngM3" type="number" step="0.1" th:value="${activeAudit.inputs().pngM3()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Water (m³)<input name="waterM3" type="number" step="0.1" th:value="${activeAudit.inputs().waterM3()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <label class="text-xs font-semibold">Household Waste (kg)<input name="wasteKg" type="number" step="0.1" th:value="${activeAudit.inputs().wasteKg()}" class="mt-1 w-full h-10 px-3 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)] font-mono" /></label>
+            <div class="md:col-span-2 flex justify-end pt-2">
+                <a th:href="@{/dashboard}" class="px-5 py-2.5 rounded-xl bg-[var(--accent-primary)] text-[var(--accent-contrast)] text-xs font-bold">Back to Overview</a>
+            </div>
+        </form>
+    </section>
+</div>
+</body>
+</html>

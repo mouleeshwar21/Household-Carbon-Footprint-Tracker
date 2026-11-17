@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6">
+        <div>
+            <p class="text-xs text-[var(--text-muted)]" th:text="${profile.regionId().fullName + ' · ' + profile.members() + ' Members · ' + activeAudit.label()}"></p>
+            <h1 class="text-3xl font-extrabold tracking-tight">Household Carbon Overview</h1>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="bento-card p-5">
+                <p class="text-xs text-[var(--text-muted)]">Current Month Total</p>
+                <p class="text-3xl font-bold font-mono mt-2" th:text="${breakdown.totalKgCo2e() + ' kg'}">0 kg</p>
+                <p class="text-xs text-[var(--text-secondary)] mt-2" th:text="${'Solar saved ' + breakdown.solarSavedKg() + ' kg'}"></p>
+            </div>
+            <div class="bento-card p-5">
+                <p class="text-xs text-[var(--text-muted)]">Per-Person Footprint</p>
+                <p class="text-3xl font-bold font-mono mt-2" th:text="${breakdown.perPersonKg() + ' kg'}">0 kg</p>
+                <p class="text-xs text-[var(--text-secondary)] mt-2">Paris Target: 167.0 kg/mo</p>
+            </div>
+            <div class="bento-card p-5">
+                <p class="text-xs text-[var(--text-muted)]">Peak Emission Source</p>
+                <p class="text-xl font-bold mt-2" th:text="${breakdown.peakStream().emoji() + ' ' + breakdown.peakStream().label()}"></p>
+                <p class="text-xs font-mono mt-2" th:text="${breakdown.peakStream().sharePct() + '% of total'}"></p>
+            </div>
+            <div class="bento-card p-5">
+                <p class="text-xs text-[var(--text-muted)]">Annual Trees Equivalent</p>
+                <p class="text-3xl font-bold font-mono mt-2" th:text="${breakdown.treesNeededPerYear() + ' trees'}">0</p>
+                <p class="text-xs text-[var(--text-secondary)] mt-2">At 22 kg CO₂/tree/yr</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bento-card p-6">
+                <h2 class="text-lg font-bold mb-4">8-Stream Footprint Breakdown</h2>
+                <div class="space-y-2.5">
+                    <div th:each="s : ${breakdown.streams()}" class="flex items-center justify-between text-sm py-1.5 border-b border-[var(--border-subtle)]">
+                        <span th:text="${s.emoji() + ' ' + s.label() + ' (' + s.rawDisplay() + ')'}"></span>
+                        <span class="font-mono font-semibold" th:text="${s.kgCo2e() + ' kg (' + s.sharePct() + '%)'}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card p-6">
+                <h2 class="text-lg font-bold mb-4">6-Theme Studio</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                    <button th:each="t : ${themes}" type="button"
+                            th:attr="onclick=|fetch('/api/theme?theme=${t.id}',{method:'POST'}).then(()=>location.reload())|"
+                            class="p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface-alt)] text-left text-xs font-semibold btn-press"
+                            th:text="${t.label}">Theme</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

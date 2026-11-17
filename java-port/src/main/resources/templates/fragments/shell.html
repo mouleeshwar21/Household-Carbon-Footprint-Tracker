@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${title}">EcoTrack V22</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" th:href="@{/css/ecotrack-v22.css}" />
+</head>
+<body>
+
+<!-- Kinetic Start Animation Overlay -->
+<div th:fragment="startIntro" id="ecotrack-start-intro"
+     class="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-gradient-to-br from-[#061813] via-[#091f19] to-[#030d0a] text-white px-6 transition-all duration-700"
+     style="clip-path: circle(150% at 50% 50%);">
+    <div class="text-center max-w-lg">
+        <svg viewBox="0 0 120 120" class="w-28 h-28 mx-auto mb-6">
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#fcd34d" stroke-width="2.2" />
+            <path d="M 32 59 L 60 35 L 88 59" fill="none" stroke="#fcd34d" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M 60 82 C 47 76, 44 61, 60 49 C 76 61, 73 76, 60 82 Z" fill="rgba(52,211,153,0.16)" stroke="#34d399" stroke-width="2.2" />
+        </svg>
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">EcoTrack <span class="text-[#fcd34d]">V22</span></h1>
+        <p class="font-editorial text-sm sm:text-base text-emerald-200/85 mt-2 mb-6">TerraLedger Global Household Carbon Intelligence</p>
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white/10 border border-white/15 text-xs">
+            <span class="font-mono font-bold text-[#fcd34d]" id="intro-kg">167.0 kg CO₂e/mo</span>
+            <span class="text-white/40">·</span>
+            <span>Paris 1.5°C Pathway</span>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            const el = document.getElementById('ecotrack-start-intro');
+            if (el) {
+                el.style.clipPath = 'circle(0% at 50% 8%)';
+                setTimeout(() => el.remove(), 750);
+            }
+        }, 1600);
+    </script>
+</div>
+
+<!-- App Shell Header & Left Vertical Pill Rail -->
+<div th:fragment="layout(content)">
+    <div th:replace="~{fragments/shell :: startIntro}"></div>
+    <header class="sticky top-0 z-30 px-6 h-16 flex items-center justify-between border-b border-[var(--border-subtle)] backdrop-blur-xl bg-[var(--glass-bg)]">
+        <div class="flex items-center gap-3">
+            <a th:href="@{/dashboard}" class="text-lg font-bold tracking-tight flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-[var(--accent-primary)] text-[var(--accent-contrast)] flex items-center justify-center font-bold">E</span>
+                <span>EcoTrack V22</span>
+            </a>
+            <span class="hidden md:inline text-xs text-[var(--text-muted)] pl-3 border-l border-[var(--border-subtle)]"
+                  th:text="${profile.householdName() + ' · ' + activeAudit.label()}">Household</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+            <a th:href="@{/account}" class="h-9 px-3.5 rounded-lg bg-[var(--accent-primary)] text-[var(--accent-contrast)] text-xs font-semibold flex items-center btn-press">
+                Profile
+            </a>
+        </div>
+    </header>
+
+    <div class="flex max-w-[1600px] mx-auto px-6 py-5 gap-6">
+        <aside class="hidden lg:flex flex-col items-center justify-between sticky top-24 h-[calc(100vh-7.5rem)] w-[72px] shrink-0 py-3 px-2 rounded-[34px] text-[var(--rail-text)] shadow-xl"
+               style="background-color: var(--rail-bg);">
+            <a th:href="@{/calculator}" class="w-11 h-11 rounded-full bg-[#fcd34d] text-[#132a26] flex items-center justify-center font-bold text-xl">+</a>
+            <nav class="flex flex-col items-center gap-2 text-xs font-semibold">
+                <a th:href="@{/dashboard}" th:classappend="${activeRoute == '/dashboard'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">D</a>
+                <a th:href="@{/calculator}" th:classappend="${activeRoute == '/calculator'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">C</a>
+                <a th:href="@{/recommendations}" th:classappend="${activeRoute == '/recommendations'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">Q</a>
+                <a th:href="@{/history}" th:classappend="${activeRoute == '/history'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">H</a>
+                <a th:href="@{/compare}" th:classappend="${activeRoute == '/compare'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">V</a>
+                <a th:href="@{/reports}" th:classappend="${activeRoute == '/reports'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">R</a>
+                <a th:href="@{/about}" th:classappend="${activeRoute == '/about'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">M</a>
+                <a th:href="@{/account}" th:classappend="${activeRoute == '/account'} ? 'bg-[#fcd34d] text-[#132a26]' : 'text-emerald-100/80'" class="w-11 h-11 rounded-full flex items-center justify-center">A</a>
+            </nav>
+            <a th:href="@{/login}" class="text-[11px] font-mono text-rose-200">Exit</a>
+        </aside>
+
+        <main class="flex-1 min-w-0">
+            <div th:replace="${content}"></div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

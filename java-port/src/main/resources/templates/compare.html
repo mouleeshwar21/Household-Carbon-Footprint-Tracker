@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6">
+        <h1 class="text-3xl font-extrabold tracking-tight">Compare Billing Cycles</h1>
+        <div class="bento-card p-6 overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                <tr class="border-b border-[var(--border-subtle)] text-xs text-[var(--text-muted)]">
+                    <th class="py-2">Month</th>
+                    <th class="py-2 text-right">Power (kWh)</th>
+                    <th class="py-2 text-right">LPG (kg)</th>
+                    <th class="py-2 text-right">Total CO₂e</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="a : ${audits}" class="border-b border-[var(--border-subtle)] last:border-b-0">
+                    <td class="py-3 font-semibold" th:text="${a.label()}"></td>
+                    <td class="py-3 text-right font-mono" th:text="${a.inputs().electricityKwh()}"></td>
+                    <td class="py-3 text-right font-mono" th:text="${a.inputs().lpgKg()}"></td>
+                    <td class="py-3 text-right font-mono font-bold" th:text="${a.totalKgCo2e() + ' kg'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>

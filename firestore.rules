@@ -1,0 +1,352 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedOwner(userId) {
+      return isSignedIn()
+        && request.auth.uid == userId
+        && request.auth.token.email_verified == true;
+    }
+
+    function isValidRegion(regionId) {
+      return regionId in ['IN', 'GLOBAL', 'US', 'EU', 'UK', 'FR', 'BR_NO', 'AU', 'AFR'];
+    }
+
+    function isValidCurrency(currency) {
+      return currency in ['INR', 'USD', 'EUR', 'GBP', 'JPY', 'BRL', 'KES', 'NGN'];
+    }
+
+    function isValidTheme(theme) {
+      return theme in [
+        'botanical-sage',
+        'emerald-obsidian',
+        'v22-blue-white',
+        'midnight-aurora',
+        'warm-alabaster',
+        'nordic-frost'
+      ];
+    }
+
+    function isNonNegNum(val, maxVal) {
+      return (val is int || val is float) && val >= 0 && val <= maxVal;
+    }
+
+    function isValidHouseholdProfile(data, userId) {
+      return data.keys().hasAll([
+          'uid',
+          'householdName',
+          'members',
+          'regionId',
+          'currency',
+          'unitSystem',
+          'theme',
+          'solarOffsetPct',
+          'monthlyTargetKg',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'uid',
+          'householdName',
+          'members',
+          'regionId',
+          'currency',
+          'unitSystem',
+          'theme',
+          'solarOffsetPct',
+          'monthlyTargetKg',
+          'updatedAt'
+        ])
+        && data.uid is string
+        && data.uid == userId
+        && data.uid.size() <= 128
+        && data.householdName is string
+        && data.householdName.size() >= 1
+        && data.householdName.size() <= 80
+        && data.members is int
+        && data.members >= 1
+        && data.members <= 25
+        && data.regionId is string
+        && data.regionId.size() <= 24
+        && isValidRegion(data.regionId)
+        && data.currency is string
+        && data.currency.size() <= 8
+        && isValidCurrency(data.currency)
+        && data.unitSystem is string
+        && data.unitSystem in ['metric', 'imperial']
+        && data.theme is string
+        && data.theme.size() <= 32
+        && isValidTheme(data.theme)
+        && isNonNegNum(data.solarOffsetPct, 100)
+        && isNonNegNum(data.monthlyTargetKg, 50000)
+        && data.updatedAt == request.time;
+    }
+
+    function isValidCarbonAudit(data, userId, auditId) {
+      return data.keys().hasAll([
+          'id',
+          'uid',
+          'month',
+          'label',
+          'regionId',
+          'members',
+          'solarOffsetPct',
+          'electricityKwh',
+          'lpgKg',
+          'petrolL',
+          'dieselL',
+          'airTravelKm',
+          'pngM3',
+          'waterM3',
+          'wasteKg',
+          'compostKg',
+          'totalKgCo2e',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'id',
+          'uid',
+          'month',
+          'label',
+          'regionId',
+          'members',
+          'solarOffsetPct',
+          'electricityKwh',
+          'lpgKg',
+          'petrolL',
+          'dieselL',
+          'airTravelKm',
+          'pngM3',
+          'waterM3',
+          'wasteKg',
+          'compostKg',
+          'evKm',
+          'motorcycleKm',
+          'transitKm',
+          'biomassKg',
+          'totalKgCo2e',
+          'notes',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.id is string
+        && data.id == auditId
+        && data.id.size() <= 64
+        && data.uid is string
+        && data.uid == userId
+        && data.uid.size() <= 128
+        && data.month is string
+        && data.month.size() == 7
+        && data.month.matches('^[0-9]{4}-[0-9]{2}$')
+        && data.label is string
+        && data.label.size() >= 1
+        && data.label.size() <= 64
+        && data.regionId is string
+        && data.regionId.size() <= 24
+        && isValidRegion(data.regionId)
+        && data.members is int
+        && data.members >= 1
+        && data.members <= 25
+        && isNonNegNum(data.solarOffsetPct, 100)
+        && isNonNegNum(data.electricityKwh, 100000)
+        && isNonNegNum(data.lpgKg, 5000)
+        && isNonNegNum(data.petrolL, 10000)
+        && isNonNegNum(data.dieselL, 10000)
+        && isNonNegNum(data.airTravelKm, 250000)
+        && isNonNegNum(data.pngM3, 10000)
+        && isNonNegNum(data.waterM3, 50000)
+        && isNonNegNum(data.wasteKg, 10000)
+        && isNonNegNum(data.compostKg, 10000)
+        && (!('evKm' in data) || isNonNegNum(data.evKm, 100000))
+        && (!('motorcycleKm' in data) || isNonNegNum(data.motorcycleKm, 100000))
+        && (!('transitKm' in data) || isNonNegNum(data.transitKm, 100000))
+        && (!('biomassKg' in data) || isNonNegNum(data.biomassKg, 10000))
+        && isNonNegNum(data.totalKgCo2e, 500000)
+        && (!('notes' in data) || (data.notes is string && data.notes.size() <= 400))
+        && data.updatedAt == request.time;
+    }
+
+    function isValidHabitCheckin(data, userId, dateId) {
+      return data.keys().hasAll(['uid', 'date', 'completedIds', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'date', 'completedIds', 'updatedAt'])
+        && data.uid is string
+        && data.uid == userId
+        && data.uid.size() <= 128
+        && data.date is string
+        && data.date == dateId
+        && data.date.size() == 10
+        && data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && data.completedIds is list
+        && data.completedIds.size() <= 10
+        && (data.completedIds.size() == 0 || (data.completedIds[0] is string && data.completedIds[0].size() <= 48))
+        && data.updatedAt == request.time;
+    }
+
+    function isValidAbatementPlan(data, userId) {
+      return data.keys().hasAll(['uid', 'adoptedIds', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'adoptedIds', 'updatedAt'])
+        && data.uid is string
+        && data.uid == userId
+        && data.uid.size() <= 128
+        && data.adoptedIds is list
+        && data.adoptedIds.size() <= 24
+        && (data.adoptedIds.size() == 0 || (data.adoptedIds[0] is string && data.adoptedIds[0].size() <= 64))
+        && data.updatedAt == request.time;
+    }
+
+    function isValidSecurityRecovery(data, userId) {
+      return data.keys().hasAll(['uid', 'emailLower', 'question', 'answerHash', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'emailLower', 'question', 'answerHash', 'updatedAt'])
+        && data.uid is string
+        && data.uid == userId
+        && data.uid.size() <= 128
+        && data.emailLower is string
+        && data.emailLower.size() >= 3
+        && data.emailLower.size() <= 254
+        && data.question is string
+        && data.question.size() >= 5
+        && data.question.size() <= 160
+        && data.answerHash is string
+        && data.answerHash.size() == 64
+        && data.answerHash.matches('^[a-f0-9]{64}$')
+        && data.updatedAt == request.time;
+    }
+
+    match /users/{userId}/profile/{docId} {
+      allow get: if isVerifiedOwner(userId) && isValidId(docId) && docId == 'household';
+      allow list: if isVerifiedOwner(userId) && resource.data.uid == request.auth.uid;
+      allow create: if isVerifiedOwner(userId)
+        && isValidId(docId)
+        && docId == 'household'
+        && isValidHouseholdProfile(incoming(), userId);
+      allow update: if isVerifiedOwner(userId)
+        && isValidId(docId)
+        && docId == 'household'
+        && isValidHouseholdProfile(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'householdName',
+          'members',
+          'regionId',
+          'currency',
+          'unitSystem',
+          'theme',
+          'solarOffsetPct',
+          'monthlyTargetKg',
+          'updatedAt'
+        ]);
+      allow delete: if isVerifiedOwner(userId) && isValidId(docId) && docId == 'household';
+    }
+
+    match /users/{userId}/audits/{auditId} {
+      allow get: if isVerifiedOwner(userId) && isValidId(auditId);
+      allow list: if isVerifiedOwner(userId) && resource.data.uid == request.auth.uid;
+      allow create: if isVerifiedOwner(userId)
+        && isValidId(auditId)
+        && isValidCarbonAudit(incoming(), userId, auditId)
+        && incoming().createdAt == request.time;
+      allow update: if isVerifiedOwner(userId)
+        && isValidId(auditId)
+        && isValidCarbonAudit(incoming(), userId, auditId)
+        && incoming().uid == existing().uid
+        && incoming().id == existing().id
+        && incoming().createdAt == existing().createdAt
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'month',
+          'label',
+          'regionId',
+          'members',
+          'solarOffsetPct',
+          'electricityKwh',
+          'lpgKg',
+          'petrolL',
+          'dieselL',
+          'airTravelKm',
+          'pngM3',
+          'waterM3',
+          'wasteKg',
+          'compostKg',
+          'evKm',
+          'motorcycleKm',
+          'transitKm',
+          'biomassKg',
+          'totalKgCo2e',
+          'notes',
+          'updatedAt'
+        ]);
+      allow delete: if isVerifiedOwner(userId) && isValidId(auditId);
+    }
+
+    match /users/{userId}/habits/{dateId} {
+      allow get: if isVerifiedOwner(userId) && isValidId(dateId);
+      allow list: if isVerifiedOwner(userId) && resource.data.uid == request.auth.uid;
+      allow create: if isVerifiedOwner(userId)
+        && isValidId(dateId)
+        && isValidHabitCheckin(incoming(), userId, dateId);
+      allow update: if isVerifiedOwner(userId)
+        && isValidId(dateId)
+        && isValidHabitCheckin(incoming(), userId, dateId)
+        && incoming().uid == existing().uid
+        && incoming().date == existing().date
+        && incoming().diff(existing()).affectedKeys().hasOnly(['completedIds', 'updatedAt']);
+      allow delete: if isVerifiedOwner(userId) && isValidId(dateId);
+    }
+
+    match /users/{userId}/abatement/{planId} {
+      allow get: if isVerifiedOwner(userId) && isValidId(planId) && planId == 'plan';
+      allow list: if isVerifiedOwner(userId) && resource.data.uid == request.auth.uid;
+      allow create: if isVerifiedOwner(userId)
+        && isValidId(planId)
+        && planId == 'plan'
+        && isValidAbatementPlan(incoming(), userId);
+      allow update: if isVerifiedOwner(userId)
+        && isValidId(planId)
+        && planId == 'plan'
+        && isValidAbatementPlan(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().diff(existing()).affectedKeys().hasOnly(['adoptedIds', 'updatedAt']);
+      allow delete: if isVerifiedOwner(userId) && isValidId(planId) && planId == 'plan';
+    }
+
+    match /users/{userId}/security/{docId} {
+      allow get: if isVerifiedOwner(userId) && isValidId(docId) && docId == 'recovery';
+      allow list: if isVerifiedOwner(userId) && resource.data.uid == request.auth.uid;
+      allow create: if isVerifiedOwner(userId)
+        && isValidId(docId)
+        && docId == 'recovery'
+        && isValidSecurityRecovery(incoming(), userId);
+      allow update: if isVerifiedOwner(userId)
+        && isValidId(docId)
+        && docId == 'recovery'
+        && isValidSecurityRecovery(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'emailLower',
+          'question',
+          'answerHash',
+          'updatedAt'
+        ]);
+      allow delete: if isVerifiedOwner(userId) && isValidId(docId) && docId == 'recovery';
+    }
+  }
+}

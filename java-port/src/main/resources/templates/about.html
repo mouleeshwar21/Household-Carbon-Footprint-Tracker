@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${profile.theme()}">
+<head th:replace="~{fragments/shell :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{fragments/shell :: layout(~{::section})}">
+    <section class="space-y-6 max-w-5xl">
+        <h1 class="text-3xl font-extrabold tracking-tight">IPCC / IEA / DEFRA Methodology</h1>
+        <div class="bento-card p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div th:each="reg : ${regions}" class="p-4 rounded-xl bg-[var(--bg-surface-alt)] border border-[var(--border-subtle)]">
+                <p class="text-sm font-bold" th:text="${reg.fullName}"></p>
+                <p class="font-mono text-lg font-extrabold mt-1" th:text="${reg.gridKgPerKwh + ' kg CO₂e/kWh'}"></p>
+                <p class="text-xs text-[var(--text-muted)] mt-1" th:text="${reg.sourceLabel}"></p>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,302 @@
+{
+  "entities": {
+    "HouseholdProfile": {
+      "title": "HouseholdProfile",
+      "description": "Household configuration, theme preference, regional electricity grid, and carbon target.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the household owner."
+        },
+        "householdName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "description": "Display name of the household."
+        },
+        "members": {
+          "type": "integer",
+          "description": "Number of people in the household (1 to 25)."
+        },
+        "regionId": {
+          "type": "string",
+          "maxLength": 24,
+          "enum": ["IN", "GLOBAL", "US", "EU", "UK", "FR", "BR_NO", "AU", "AFR"],
+          "description": "Regional grid preset identifier."
+        },
+        "currency": {
+          "type": "string",
+          "maxLength": 8,
+          "enum": ["INR", "USD", "EUR", "GBP", "JPY", "BRL", "KES", "NGN"],
+          "description": "Preferred display currency."
+        },
+        "unitSystem": {
+          "type": "string",
+          "maxLength": 16,
+          "enum": ["metric", "imperial"],
+          "description": "Measurement unit system."
+        },
+        "theme": {
+          "type": "string",
+          "maxLength": 32,
+          "enum": [
+            "botanical-sage",
+            "emerald-obsidian",
+            "v22-blue-white",
+            "midnight-aurora",
+            "warm-alabaster",
+            "nordic-frost"
+          ],
+          "description": "Active 6-Theme Studio identifier."
+        },
+        "solarOffsetPct": {
+          "type": "number",
+          "description": "Rooftop solar offset percentage (0 to 100)."
+        },
+        "monthlyTargetKg": {
+          "type": "number",
+          "description": "Monthly household CO2e target in kg."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last profile update."
+        }
+      },
+      "required": ["uid", "householdName", "members", "regionId", "currency", "unitSystem", "theme", "solarOffsetPct", "monthlyTargetKg", "updatedAt"]
+    },
+    "CarbonAudit": {
+      "title": "CarbonAudit",
+      "description": "Monthly household carbon footprint audit across 8 primary streams and advanced mobility/heating inputs.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Document identifier for the audit."
+        },
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner Firebase Auth UID."
+        },
+        "month": {
+          "type": "string",
+          "maxLength": 7,
+          "pattern": "^[0-9]{4}-[0-9]{2}$",
+          "description": "Billing cycle month in YYYY-MM format."
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Human-readable cycle label."
+        },
+        "regionId": {
+          "type": "string",
+          "maxLength": 24,
+          "description": "Grid region used during calculation."
+        },
+        "members": {
+          "type": "integer",
+          "description": "Household headcount during this cycle."
+        },
+        "solarOffsetPct": {
+          "type": "number",
+          "description": "Rooftop solar offset percentage."
+        },
+        "electricityKwh": {
+          "type": "number"
+        },
+        "lpgKg": {
+          "type": "number"
+        },
+        "petrolL": {
+          "type": "number"
+        },
+        "dieselL": {
+          "type": "number"
+        },
+        "airTravelKm": {
+          "type": "number"
+        },
+        "pngM3": {
+          "type": "number"
+        },
+        "waterM3": {
+          "type": "number"
+        },
+        "wasteKg": {
+          "type": "number"
+        },
+        "compostKg": {
+          "type": "number"
+        },
+        "evKm": {
+          "type": "number"
+        },
+        "motorcycleKm": {
+          "type": "number"
+        },
+        "transitKm": {
+          "type": "number"
+        },
+        "biomassKg": {
+          "type": "number"
+        },
+        "totalKgCo2e": {
+          "type": "number"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "uid",
+        "month",
+        "label",
+        "regionId",
+        "members",
+        "solarOffsetPct",
+        "electricityKwh",
+        "lpgKg",
+        "petrolL",
+        "dieselL",
+        "airTravelKm",
+        "pngM3",
+        "waterM3",
+        "wasteKg",
+        "compostKg",
+        "totalKgCo2e",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "HabitCheckin": {
+      "title": "HabitCheckin",
+      "description": "Daily sustainable habit checklist completion state.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "date": {
+          "type": "string",
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "completedIds": {
+          "type": "array",
+          "description": "Bounded list of completed habit identifiers (max 10)."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "date", "completedIds", "updatedAt"]
+    },
+    "AbatementPlan": {
+      "title": "AbatementPlan",
+      "description": "Adopted household carbon quick-win actions.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "adoptedIds": {
+          "type": "array",
+          "description": "Bounded list of adopted action identifiers (max 24)."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "adoptedIds", "updatedAt"]
+    },
+    "SecurityRecovery": {
+      "title": "SecurityRecovery",
+      "description": "Salted SHA-256 security question recovery record for password reset verification.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "emailLower": {
+          "type": "string",
+          "maxLength": 254
+        },
+        "question": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 160
+        },
+        "answerHash": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "emailLower", "question", "answerHash", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/profile/{docId}": {
+      "schema": {
+        "$ref": "#/entities/HouseholdProfile"
+      },
+      "description": "Stores the authenticated household owner's configuration and preferences."
+    },
+    "/users/{userId}/audits/{auditId}": {
+      "schema": {
+        "$ref": "#/entities/CarbonAudit"
+      },
+      "description": "Stores monthly household carbon footprint audit documents."
+    },
+    "/users/{userId}/habits/{dateId}": {
+      "schema": {
+        "$ref": "#/entities/HabitCheckin"
+      },
+      "description": "Stores daily habit checklist completions per date."
+    },
+    "/users/{userId}/abatement/{planId}": {
+      "schema": {
+        "$ref": "#/entities/AbatementPlan"
+      },
+      "description": "Stores adopted Quick Wins abatement actions for the household."
+    },
+    "/users/{userId}/security/{docId}": {
+      "schema": {
+        "$ref": "#/entities/SecurityRecovery"
+      },
+      "description": "Stores the household owner's security question and SHA-256 hashed recovery answer."
+    }
+  }
+}

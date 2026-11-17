@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root,
+[data-theme="botanical-sage"] {
+  --bg-canvas: #f2f7f4;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #e6f0ea;
+  --bg-elevated: #ffffff;
+  --border-subtle: rgba(19, 42, 38, 0.1);
+  --border-strong: rgba(19, 42, 38, 0.18);
+  --text-primary: #132a26;
+  --text-secondary: #37534d;
+  --text-muted: #5d7771;
+  --accent-primary: #132a26;
+  --accent-secondary: #1e6b52;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(30, 107, 82, 0.1);
+  --gold-accent: #fcd34d;
+  --rail-bg: rgba(19, 42, 38, 0.95);
+  --rail-text: #e2f1ec;
+  --card-glow: rgba(30, 107, 82, 0.16);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="emerald-obsidian"] {
+  --bg-canvas: #071411;
+  --bg-surface: #0d211c;
+  --bg-surface-alt: #122c25;
+  --bg-elevated: #14332b;
+  --border-subtle: rgba(110, 231, 183, 0.14);
+  --border-strong: rgba(110, 231, 183, 0.28);
+  --text-primary: #ecfdf5;
+  --text-secondary: #a7f3d0;
+  --text-muted: #6ee7b7;
+  --accent-primary: #34d399;
+  --accent-secondary: #10b981;
+  --accent-contrast: #052019;
+  --accent-soft: rgba(52, 211, 153, 0.14);
+  --gold-accent: #fcd34d;
+  --rail-bg: rgba(9, 26, 22, 0.95);
+  --rail-text: #d1fae5;
+  --card-glow: rgba(52, 211, 153, 0.2);
+  --glass-bg: rgba(13, 33, 28, 0.72);
+}
+
+[data-theme="v22-blue-white"] {
+  --bg-canvas: #f3f7fc;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #e8f0fb;
+  --bg-elevated: #ffffff;
+  --border-subtle: rgba(29, 78, 216, 0.11);
+  --border-strong: rgba(29, 78, 216, 0.22);
+  --text-primary: #0f1f3d;
+  --text-secondary: #334e7b;
+  --text-muted: #5a7299;
+  --accent-primary: #1d4ed8;
+  --accent-secondary: #2563eb;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --gold-accent: #f59e0b;
+  --rail-bg: rgba(15, 31, 61, 0.95);
+  --rail-text: #e0ecff;
+  --card-glow: rgba(37, 99, 235, 0.16);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+}
+
+[data-theme="midnight-aurora"] {
+  --bg-canvas: #060d1f;
+  --bg-surface: #0d1834;
+  --bg-surface-alt: #132247;
+  --bg-elevated: #162954;
+  --border-subtle: rgba(34, 211, 238, 0.15);
+  --border-strong: rgba(34, 211, 238, 0.3);
+  --text-primary: #f0f9ff;
+  --text-secondary: #bae6fd;
+  --text-muted: #7dd3fc;
+  --accent-primary: #22d3ee;
+  --accent-secondary: #06b6d4;
+  --accent-contrast: #061428;
+  --accent-soft: rgba(34, 211, 238, 0.15);
+  --gold-accent: #fde047;
+  --rail-bg: rgba(8, 17, 40, 0.95);
+  --rail-text: #e0f2fe;
+  --card-glow: rgba(34, 211, 238, 0.22);
+  --glass-bg: rgba(13, 24, 52, 0.75);
+}
+
+[data-theme="warm-alabaster"] {
+  --bg-canvas: #f8f5ef;
+  --bg-surface: #fffdf9;
+  --bg-surface-alt: #f0e9dc;
+  --bg-elevated: #ffffff;
+  --border-subtle: rgba(41, 33, 28, 0.1);
+  --border-strong: rgba(41, 33, 28, 0.2);
+  --text-primary: #29211c;
+  --text-secondary: #594a41;
+  --text-muted: #7d6d63;
+  --accent-primary: #c2410c;
+  --accent-secondary: #9a3412;
+  --accent-contrast: #fffdf9;
+  --accent-soft: rgba(194, 65, 12, 0.1);
+  --gold-accent: #d97706;
+  --rail-bg: rgba(41, 33, 28, 0.95);
+  --rail-text: #f7efe4;
+  --card-glow: rgba(194, 65, 12, 0.14);
+  --glass-bg: rgba(255, 253, 249, 0.78);
+}
+
+[data-theme="nordic-frost"] {
+  --bg-canvas: #eef3f7;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #e1ebf2;
+  --bg-elevated: #ffffff;
+  --border-subtle: rgba(15, 41, 66, 0.1);
+  --border-strong: rgba(15, 41, 66, 0.2);
+  --text-primary: #0f2942;
+  --text-secondary: #33516e;
+  --text-muted: #5b7894;
+  --accent-primary: #0284c7;
+  --accent-secondary: #0369a1;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(2, 132, 199, 0.1);
+  --gold-accent: #eab308;
+  --rail-bg: rgba(15, 41, 66, 0.95);
+  --rail-text: #e6f2fa;
+  --card-glow: rgba(2, 132, 199, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+}
+.font-mono, .tabular-nums {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.font-editorial {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+}
+
+.liquid-glass-panel {
+  background: linear-gradient(145deg, rgba(255,255,255,0.18) 0%, rgba(209,250,229,0.08) 42%, rgba(13,38,32,0.62) 100%);
+  backdrop-filter: blur(28px) saturate(185%);
+  -webkit-backdrop-filter: blur(28px) saturate(185%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.36), 0 24px 60px -12px rgba(4,15,12,0.65);
+}
+
+.liquid-glass-input {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.bento-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease, border-color 200ms ease;
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: 0 14px 32px -12px var(--card-glow);
+}
+.btn-press:active { transform: scale(0.97); }
